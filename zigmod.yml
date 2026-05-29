@@ -1,0 +1,7 @@
+id: 73bukkeci2u6865xm3of4o7ie760r29t21pbkwjiavb0a8jl
+name: sys-darwin
+main: sys_darwin.zig
+license: MIT
+description: OS bindings layer for interacting with macOS
+min_zig_version: 0.14.1
+dependencies:
