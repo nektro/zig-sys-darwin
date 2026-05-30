@@ -279,6 +279,7 @@ pub const libc = struct {
     pub extern fn isatty(fd: c_int) c_int;
     pub extern fn lseek(fd: c_int, offset: off_t, whence: c_int) off_t;
     pub extern fn getcwd(buf: [*]u8, size: usize) ?[*:0]u8;
+    pub extern fn fchmod(fildes: c_int, mode: mode_t) c_int;
 };
 
 pub const natural_t = c_uint;
@@ -562,4 +563,9 @@ pub fn getcwd(buf: []u8) ![*:0]u8 {
     const rc = libc.getcwd(buf.ptr, buf.len);
     if (rc == null) return errno.fromInt(errno.fromLibC());
     return rc.?;
+}
+pub fn fchmod(fd: c_int, mode: mode_t) !void {
+    const rc = libc.fchmod(fd, mode);
+    if (rc == -1) return errno.fromInt(errno.fromLibC());
+    std.debug.assert(rc == 0);
 }
