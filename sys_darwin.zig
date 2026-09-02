@@ -281,6 +281,7 @@ pub const libc = struct {
     pub extern fn getcwd(buf: [*]u8, size: usize) ?[*:0]u8;
     pub extern fn fchmod(fildes: c_int, mode: mode_t) c_int;
     pub extern fn faccessat(fd: c_int, path: [*:0]const u8, amode: c_int, flag: c_int) c_int;
+    pub extern fn readlinkat(fd: c_int, noalias path: [*:0]const u8, noalias buf: [*]u8, len: usize) isize;
 };
 
 pub const natural_t = c_uint;
@@ -574,4 +575,11 @@ pub fn faccessat(fd: c_int, path: [*:0]const u8, amode: c_int, flag: c_int) !voi
     const rc = libc.faccessat(fd, path, amode, flag);
     if (rc == -1) return errno.fromInt(errno.fromLibC());
     std.debug.assert(rc == 0);
+}
+pub fn readlinkat(dirfd: c_int, noalias path: [*:0]const u8, noalias buf: []u8) ![:0]u8 {
+    const rc = libc.readlinkat(dirfd, path, buf.ptr, buf.len);
+    if (rc == -1) return errno.fromInt(errno.fromLibC());
+    std.debug.assert(rc >= 0);
+    buf[@intCast(rc)] = 0;
+    return buf[0..@intCast(rc) :0];
 }
