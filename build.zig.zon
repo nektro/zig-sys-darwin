@@ -1,0 +1,8 @@
+.{
+    .name = .zig_sys_darwin,
+    .version = "0.0.1",
+    .dependencies = .{},
+    .minimum_zig_version = "0.17.0",
+    .paths = .{""},
+    .fingerprint = 0xd8bfb130610e92e4,
+}
