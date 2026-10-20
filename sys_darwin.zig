@@ -235,19 +235,19 @@ pub const errno = struct {
         // assert Enum is sequential
         var value: c_ushort = 0; // SUCCESS
         for (std.enums.values(Enum)) |val| {
-            std.debug.assert(@intFromEnum(val) > value);
-            value = @intFromEnum(val);
+            std.debug.assert(@backingInt(val) > value);
+            value = @backingInt(val);
         }
     }
     comptime {
         // sanity test
-        std.debug.assert(@intFromEnum(Enum.EPERM) == 1);
+        std.debug.assert(@backingInt(Enum.EPERM) == 1);
     }
     const list = blk: {
         const values = std.enums.values(Enum);
-        const len = @intFromEnum(values[values.len - 1]) + 1;
+        const len = @backingInt(values[values.len - 1]) + 1;
         var errors: [len]Error = @splat(error.Unexpected);
-        for (values) |f| errors[@intFromEnum(f)] = @field(Error, @tagName(f));
+        for (values) |f| errors[@backingInt(f)] = @field(Error, @tagName(f));
         const final = errors;
         break :blk final;
     };
