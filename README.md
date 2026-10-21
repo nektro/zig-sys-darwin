@@ -6,4 +6,7 @@
 [![Zig](https://img.shields.io/badge/Zig-0.17-f7a41d)](https://ziglang.org/)
 [![Zigmod](https://img.shields.io/badge/Zigmod-latest-f7a41d)](https://github.com/nektro/zigmod)
 
+> [!NOTE]
+> This canonical source of this repository has moved to https://git.nektro.net/lib/zig/sys/ and will no longer be updated.
+
 OS bindings layer for interacting with macOS
